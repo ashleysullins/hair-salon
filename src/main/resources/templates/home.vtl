@@ -1,8 +1,56 @@
-<h1>Header Goes Here</h1>
-<form action='/results' method='get'>
-  <div class="form-group">
-    <input id="form_id" name="form_name" class="form-control" type="text">
-  </div>
+<h1>PDX Beauty School Digital Rolodex</h1>
 
-      <button type="submit" class="btn btn-info">Submit!</button>
+<h2>Join Our Team</h2>
+
+<h3>Give us your name and phone number to become part of the PDX Beauty School Team! </h3>
+
+<form action='/new-stylist' method='post'>
+  <div class="form-group">
+    <input id="stylistName" name="stylistName" class="form-control" type="text" required="true" placeholder="Name">
+  </select>
+  </div>
+      <button type="submit" class="btn btn-info">Join Us!</button>
 </form>
+
+<h2>Become a Client</h2>
+
+<h3>Add your name and phone number to the PDX Rolodex and we'll be in touch to create your new look before you know it!</h3>
+
+<form action='/new-client' method='post'>
+  <div class="form-group">
+    <input id="clientName" name="clientName" class="form-control" type="text" required="true" placeholder="Name">
+    <input id="clientPhone" name="clientPhone" class="form-control" type="text" required="true" placeholder="Phone">
+    <select id="stylist_id" name="stylist_id" type="text">
+     #foreach($stylist in $stylists)
+      <option value="$stylist.getId()">$stylist.getName()</option>
+    #end
+  </select>
+  </div>
+      <button type="submit" class="btn btn-info">Join us!</button>
+</form>
+
+<table class="table table-striped">
+  <tr>
+    <td>Name</td>
+    <td>Phone</td>
+    <td>Stylist's Name</td>
+    <td>Delete</td>
+    <td>Edit</td>
+  </tr>
+  #foreach($client in $clients)
+    <tr>
+      <td>$client.getName()</td>
+      <td>$client.getPhone()</td>
+      <td>$client.getStylistName()</td>
+      <td><form action="/client/$client.getId()/delete" method="post">
+        <button type="submit" class="btn btn-primary">
+        <i class="glyphicon glyphicon-trash"></i></span>
+      </form></td>
+
+      <td><form action="/client/$client.getId()/update" method="get">
+        <button type="submit" class="btn btn-primary">
+        <i class="glyphicon glyphicon-pencil"></i></span>
+      </form></td>
+    </tr>
+  #end
+</table>
