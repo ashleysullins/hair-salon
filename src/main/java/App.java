@@ -29,7 +29,6 @@ public class App {
       int stylist_id = Integer.parseInt(request.queryParams("stylistId"));
       Client newClient = new Client(name, phone, stylist_id);
       newClient.save();
-
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
     
@@ -46,17 +45,24 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
     
-    get("/client/:id/edit", (request, response) -> {
+    get("/client/:id/update", (request, response) -> {
       Map<String, Object> model = new HashMap<String,Object>();
       model.put("template", "templates/edit-client.vtl");
       model.put("client", Client.find(Integer.parseInt(request.params(":id"))));
+      model.put("clients", Client.all());
+      model.put("stylists", Stylist.all());
 
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
     
-    post("/edit-client-success", (request, response) -> {
+    post("/client/:id/edit-client-success", (request, response) -> {
       Map<String, Object> model = new HashMap<String,Object>();
       model.put("template", "templates/edit-client-success.vtl");
+      Client client = Client.find(Integer.parseInt(request.params(":id")));
+      String name = request.queryParams("clientName");
+      int phone = Integer.parseInt(request.queryParams("clientPhone"));
+      int stylist_id = Integer.parseInt(request.queryParams("stylistId"));
+      client.update(name, phone, stylist_id);
 
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

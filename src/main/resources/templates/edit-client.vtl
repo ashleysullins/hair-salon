@@ -4,11 +4,12 @@
 
 <h3></h3>
 
-<form action='/edit-client-sucess' method='post'>
+<form action='/client/$client.getId()/edit-client-success' method="post">
+  <input id="id" name="id" type="hidden" value="$client.getId()">
   <div class="form-group">
-    <input id="clientName" name="clientName" class="form-control" type="text" required="true" placeholder="$client.getName()">
-    <input id="clientPhone" name="clientPhone" class="form-control" type="text" required="true" placeholder="$client.getPhone()">
-    <select id="stylist_id" name="stylist_id" type="text">
+    <input id="clientName" name="clientName" class="form-control" type="text" required="true" placeholder="Name">
+    <input type="text" class="form-control" name="clientPhone" id="clientPhone" placeholder="Phone">
+    <select id="stylistId" name="stylistId" type="text">
      #foreach($stylist in $stylists)
       <option value="$stylist.getId()">$stylist.getName()</option>
     #end
