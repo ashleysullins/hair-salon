@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ClientTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2015-08-28T16:44:59" hostname="Ashleys-MacBook-Pro.local" time="0.12">
+  <properties/>
+  <testcase name="all_emptyAtFirst" classname="ClientTest" time="0.108"/>
+  <testcase name="equals_returnsTrueIfClientsAretheSame" classname="ClientTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
