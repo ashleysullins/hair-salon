@@ -14,6 +14,9 @@ public class AppIntegrationTest extends FluentTest {
 
   @ClassRule
   public static ServerRule server = new ServerRule();
+  
+  @ClassRule
+  public static DatabaseRule database = new DatabaseRule();
 
   @Test
   public void rootTest() {
@@ -54,18 +57,6 @@ public class AppIntegrationTest extends FluentTest {
   }
   
   @Test
-  public void clientIsDeleted() {
-    Stylist myStylist = new Stylist ("Annie");
-    myStylist.save();
-    Client myClient = new Client ("Helen", 8675309, myStylist.getId());
-    myClient.save();
-    myClient.delete();
-    goTo("http://localhost:4567/");
-    // assertThat(pageSource().contains("Name").doesNotContain("Helen"));
-    // assertThat(pageSource().contains("Phone").doesNotContain("8675309"));
-  }
-  
-  @Test
   public void stylistIsUpdated() {
     Stylist myStylist = new Stylist ("Annie");
     myStylist.save();
@@ -74,13 +65,4 @@ public class AppIntegrationTest extends FluentTest {
     assertThat(pageSource()).contains("Anna");
   }
   
-  @Test
-  public void stylistIsDeleted() {
-    Stylist myStylist = new Stylist ("Annie");
-    myStylist.save();
-    myStylist.delete();
-    goTo("http://localhost:4567/");
-    // assertThat(pageSource().contains("Name").doesNotContain("Helen"));
-    // assertThat(pageSource().contains("Phone").doesNotContain("8675309"));
-  }
 }
