@@ -49,4 +49,24 @@ public class ClientTest {
     myClient.delete();
     assertEquals(Client.all().size(), 0);
   }
+  
+  @Test
+  public void save_savesStylistIdIntoDB_true() {
+    Stylist myStylist = new Stylist("Amy");
+    myStylist.save();
+    Client myClient = new Client("Helen", 8675309, myStylist.getId());
+    myClient.save();
+    Client savedClient = Client.find(myClient.getId());
+    assertEquals(savedClient.getStylist_Id(), myStylist.getId());
+  }
+  
+  @Test
+  public void find_findNameofStylistAssociatedWithClient() {
+    Stylist myStylist = new Stylist("Amy");
+    myStylist.save();
+    Client myClient = new Client("Helen", 8675309, myStylist.getId());
+    myClient.save();
+    assertEquals(myClient.getStylistName(), "Amy"); 
+  }
+  
 }

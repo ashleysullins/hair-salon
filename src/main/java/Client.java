@@ -91,4 +91,13 @@ public class Client {
       .executeUpdate();
     }
   }
+  
+  public String getStylistName() {
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SElECT name FROM stylists WHERE id = :id;";
+      return con.createQuery(sql)
+      .addParameter("id", stylist_id)
+      .executeAndFetchFirst(String.class);
+    }
+  }
 }
