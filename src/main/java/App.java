@@ -13,15 +13,6 @@ public class App {
       Map<String, Object> model = new HashMap<String,Object>();
       model.put("template", "templates/home.vtl");
       
-      // String sName = request.queryParams("stylistName");
-      // Stylist newStylist = new Stylist(sname);
-      
-      String name = request.queryParams("clientName");
-      int phone = Integer.parseInt(request.queryParams("clientPhone"));
-      int stylist_id = Integer.parseInt(request.queryParams("stylistid"));
-      Client newClient = new Client(name, phone, stylist_id);
-      newClient.save();
-      
       model.put("clients", Client.all());
       model.put("stylists", Stylist.all());
       return new ModelAndView(model, layout);
@@ -32,6 +23,12 @@ public class App {
       model.put("template", "templates/new-client.vtl");
       model.put("clients", Client.all());
       model.put("stylists", Stylist.all());
+      
+      String name = request.queryParams("clientName");
+      int phone = Integer.parseInt(request.queryParams("clientPhone"));
+      //int stylist_id = Integer.parseInt(request.queryParams("stylistid"));
+      Client newClient = new Client(name, phone, 1);
+      newClient.save();
 
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -41,11 +38,15 @@ public class App {
       model.put("template", "templates/new-stylist.vtl");
       model.put("clients", Client.all());
       model.put("stylists", Stylist.all());
+      
+      String name = request.queryParams("stylistName");
+      Stylist newStylist = new Stylist(name);
+      newStylist.save();
 
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
     
-    get("/edit-client", (request, response) -> {
+    get("/client/:id/edit", (request, response) -> {
       Map<String, Object> model = new HashMap<String,Object>();
       model.put("template", "templates/edit-client.vtl");
 
@@ -56,6 +57,15 @@ public class App {
       Map<String, Object> model = new HashMap<String,Object>();
       model.put("template", "templates/edit-client-success.vtl");
 
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+    
+    post("/client/:id/delete", (request, response) -> {
+      Map<String, Object> model = new HashMap<String,Object>();
+      Client client = Client.find(Integer.parseInt(request.params(":id")));
+      client.delete();
+      model.put("clients", Client.all());
+      model.put("template", "templates/edit-client-success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }

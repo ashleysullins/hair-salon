@@ -5,6 +5,7 @@
 <h3>Give us your name and phone number to become part of the PDX Beauty School Team! </h3>
 
 <form action='/new-stylist' method='post'>
+  <input type="hidden" name="id" value="$stylist.getId">
   <div class="form-group">
     <input id="stylistName" name="stylistName" class="form-control" type="text" required="true" placeholder="Name">
   </select>
@@ -17,9 +18,10 @@
 <h3>Add your name and phone number to the PDX Rolodex and we'll be in touch to create your new look before you know it!</h3>
 
 <form action='/new-client' method='post'>
+  <input type="hidden" name="id" value="$client.getId">
   <div class="form-group">
     <input id="clientName" name="clientName" class="form-control" type="text" required="true" placeholder="Name">
-    <input id="clientPhone" name="clientPhone" class="form-control" type="text" required="true" placeholder="Phone">
+    <input type="text" class="form-control" name="clientPhone" id="clientPhone" placeholder="1">
     <select id="stylist_id" name="stylist_id" type="text">
      #foreach($stylist in $stylists)
       <option value="$stylist.getId()">$stylist.getName()</option>
