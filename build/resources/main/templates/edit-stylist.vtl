@@ -1,9 +1,15 @@
 <h1>PDX Beauty School Digital Rolodex</h1>
 
-<div class="alert alert-success">
-  <a href="/" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  You've been added to our stylist list. We'll be in touch shortly!
-</div>
+<h2>Edit Your Information</h2>
+
+<form action='/stylist/$stylist.getId()/edit-stylist-success' method="post">
+  <input type="hidden" name="id" value="$stylist.getId">
+  <div class="form-group">
+    <input id="stylistName" name="stylistName" class="form-control" type="text" required="true" placeholder="Name">
+  </select>
+  </div>
+      <button type="submit" class="btn btn-info stylist">Submit</button>
+</form>
 
 <h2>Stylists</h2>
 

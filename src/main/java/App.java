@@ -72,7 +72,37 @@ public class App {
       Client client = Client.find(Integer.parseInt(request.params(":id")));
       client.delete();
       model.put("clients", Client.all());
-      model.put("template", "templates/edit-client-success.vtl");
+      model.put("template", "templates/delete-client.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+  
+    get("/stylist/:id/update", (request, response) -> {
+      Map<String, Object> model = new HashMap<String,Object>();
+      model.put("template", "templates/edit-stylist.vtl");
+      model.put("stylist", Stylist.find(Integer.parseInt(request.params(":id"))));
+      model.put("clients", Client.all());
+      model.put("stylists", Stylist.all());
+
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+    
+    post("/stylist/:id/edit-stylist-success", (request, response) -> {
+      Map<String, Object> model = new HashMap<String,Object>();
+      model.put("template", "templates/edit-stylist-success.vtl");
+      Stylist stylist = Stylist.find(Integer.parseInt(request.params(":id")));
+      String name = request.queryParams("stylistName");
+      stylist.update(name);
+      model.put("stylists", Stylist.all());
+
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+    
+    post("/stylist/:id/delete", (request, response) -> {
+      Map<String, Object> model = new HashMap<String,Object>();
+      Stylist stylist = Stylist.find(Integer.parseInt(request.params(":id")));
+      stylist.delete();
+      model.put("stylists", Stylist.all());
+      model.put("template", "templates/delete-stylist.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }
