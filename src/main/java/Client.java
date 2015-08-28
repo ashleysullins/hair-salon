@@ -62,12 +62,33 @@ public class Client {
   }
   
   public static Client find(int id) {
-  try(Connection con = DB.sql2o.open()) {
-    String sql = "SELECT * FROM clients where id=:id";
-    Client client = con.createQuery(sql)
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM clients where id=:id";
+      Client client = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Client.class);
+      return client;
+    }
+  }
+  
+  public void update(String name, Integer phone, Integer stylist_id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE clients SET (name, phone, stylist_id) = (:name, :phone, :stylist_id) WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("name", name)
+        .addParameter("phone", phone)
+        .addParameter("stylist_id", stylist_id)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
+  
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+    String sql = "DELETE FROM clients WHERE id = :id;";
+    con.createQuery(sql)
       .addParameter("id", id)
-      .executeAndFetchFirst(Client.class);
-    return client;
+      .executeUpdate();
     }
   }
 }
