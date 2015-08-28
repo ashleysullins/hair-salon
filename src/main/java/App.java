@@ -12,7 +12,7 @@ public class App {
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String,Object>();
       model.put("template", "templates/home.vtl");
-      
+  
       model.put("clients", Client.all());
       model.put("stylists", Stylist.all());
       return new ModelAndView(model, layout);
@@ -41,7 +41,6 @@ public class App {
       String name = request.queryParams("stylistName");
       Stylist newStylist = new Stylist(name);
       newStylist.save();
-
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
     
@@ -63,6 +62,7 @@ public class App {
       int phone = Integer.parseInt(request.queryParams("clientPhone"));
       int stylist_id = Integer.parseInt(request.queryParams("stylistId"));
       client.update(name, phone, stylist_id);
+      model.put("clients", Client.all());
 
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
