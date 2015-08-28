@@ -17,4 +17,20 @@ public class ClientTest {
     Client secondClient = new Client("Helen", 8675309, 1);
     assertTrue(firstClient.equals(secondClient));
   }
+  
+  @Test
+  public void save_assignsIdToObject() {
+    Client myClient = new Client("Helen", 8675309, 1);
+    myClient.save();
+    Client savedClient = Client.all().get(0);
+    assertEquals(myClient.getId(), savedClient.getId());
+  }
+  
+  @Test
+  public void find_findsClientInDatabase_true() {
+    Client myClient = new Client("Helen", 8675309, 1);
+    myClient.save();
+    Client savedClient = Client.find(myClient.getId());
+    assertTrue(myClient.equals(savedClient));
+  }
 }
