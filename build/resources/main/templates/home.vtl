@@ -22,7 +22,7 @@
   <div class="form-group">
     <input id="clientName" name="clientName" class="form-control" type="text" required="true" placeholder="Name">
     <input type="text" class="form-control" name="clientPhone" id="clientPhone" placeholder="1">
-    <select id="stylist_id" name="stylist_id" type="text">
+    <select id="stylistId" name="stylistId" type="text">
      #foreach($stylist in $stylists)
       <option value="$stylist.getId()">$stylist.getName()</option>
     #end

@@ -26,8 +26,8 @@ public class App {
       
       String name = request.queryParams("clientName");
       int phone = Integer.parseInt(request.queryParams("clientPhone"));
-      //int stylist_id = Integer.parseInt(request.queryParams("stylistid"));
-      Client newClient = new Client(name, phone, 1);
+      int stylist_id = Integer.parseInt(request.queryParams("stylistId"));
+      Client newClient = new Client(name, phone, stylist_id);
       newClient.save();
 
       return new ModelAndView(model, layout);
@@ -49,6 +49,7 @@ public class App {
     get("/client/:id/edit", (request, response) -> {
       Map<String, Object> model = new HashMap<String,Object>();
       model.put("template", "templates/edit-client.vtl");
+      model.put("client", Client.find(Integer.parseInt(request.params(":id"))));
 
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
